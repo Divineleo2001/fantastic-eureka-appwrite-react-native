@@ -23,22 +23,24 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
-
 const GITHUB_AVATAR_URI =
   "https://i.pinimg.com/originals/ef/a2/8d/efa28d18a04e7fa40ed49eeb0ab660db.jpg";
-
-const services = () => {
+const CardComponent = () => {
   const [progress, setProgress] = React.useState(78);
 
   function updateProgressValue() {
     setProgress(Math.floor(Math.random() * 100));
   }
   return (
-    <View className="flex-1 justify-center items-center gap-5 p-6 ">
-      <Card className="w-full max-w-sm p-6 rounded-2xl">
+    <View>
+      <Card className="w-[300px] max-w-2xl">
         <CardHeader className="items-start">
-          <Avatar alt="Rick Sanchez's Avatar" className="w-24 h-24">
+            <Text className="text-2xl font-bold">
+                Service 1
+            </Text>
+          {/* <Avatar alt="Rick Sanchez's Avatar" className="w-24 h-24">
             <AvatarImage source={{ uri: GITHUB_AVATAR_URI }} />
+            
             <AvatarFallback>
               <Text>RS</Text>
             </AvatarFallback>
@@ -61,7 +63,7 @@ const services = () => {
                 <Text className="native:text-lg">Freelance</Text>
               </TooltipContent>
             </Tooltip>
-          </View>
+          </View> */}
         </CardHeader>
         <CardContent>
           <View className="flex-row justify-around gap-3">
@@ -114,4 +116,4 @@ const services = () => {
   );
 };
 
-export default services;
+export default CardComponent;
