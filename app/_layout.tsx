@@ -11,6 +11,7 @@ import { useColorScheme } from "~/lib/useColorScheme";
 import { PortalHost } from "~/components/primitives/portal";
 import { ThemeToggle } from "~/components/ThemeToggle";
 import { HomeIconHover } from "~/components/HomeIconHover";
+import { useFonts } from "expo-font";
 
 const LIGHT_THEME: Theme = {
   dark: false,
@@ -33,7 +34,24 @@ export default function RootLayout() {
   const { colorScheme, setColorScheme, isDarkColorScheme } = useColorScheme();
   const [isColorSchemeLoaded, setIsColorSchemeLoaded] = React.useState(false);
 
+  const [fontsLoaded, error] = useFonts({
+    "Poppins-Black": require("../assets/fonts/Poppins-Black.ttf"),
+    "Poppins-Bold": require("../assets/fonts/Poppins-Bold.ttf"),
+    "Poppins-ExtraBold": require("../assets/fonts/Poppins-ExtraBold.ttf"),
+    "Poppins-ExtraLight": require("../assets/fonts/Poppins-ExtraLight.ttf"),
+    "Poppins-Light": require("../assets/fonts/Poppins-Light.ttf"),
+    "Poppins-Medium": require("../assets/fonts/Poppins-Medium.ttf"),
+    "Poppins-Regular": require("../assets/fonts/Poppins-Regular.ttf"),
+    "Poppins-SemiBold": require("../assets/fonts/Poppins-SemiBold.ttf"),
+    "Poppins-Thin": require("../assets/fonts/Poppins-Thin.ttf"),
+  });
+
   React.useEffect(() => {
+    if (error) throw error;
+
+    if (fontsLoaded) {
+      SplashScreen.hideAsync();
+    }
     (async () => {
       const theme = await AsyncStorage.getItem("theme");
       if (Platform.OS === "web") {
@@ -56,9 +74,12 @@ export default function RootLayout() {
     })().finally(() => {
       SplashScreen.hideAsync();
     });
-  }, []);
+  }, [fontsLoaded, error]);
 
   if (!isColorSchemeLoaded) {
+    return null;
+  }
+  if (!fontsLoaded && !error) {
     return null;
   }
 
