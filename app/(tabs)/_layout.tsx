@@ -1,28 +1,93 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Tabs, } from "expo-router";
 import { ThemeToggle } from "~/components/ThemeToggle";
+import { Tabs, Redirect } from "expo-router";
+import { Image, Text, View } from "react-native";
+import { icons } from "../../constants";
 
-export default function TabLayout() {
+interface TabIconProps {
+  icon: any;
+  color: string;
+  focused: boolean;
+  name: string;
+}
+const TabIcon = ({ icon, color, focused, name }: TabIconProps) => {
   return (
-    <Tabs  screenOptions={{ tabBarActiveTintColor: "green" }}>
+    <View className="items-center justify-center gap-2">
+      <Image
+        source={icon}
+        resizeMode="contain"
+        tintColor={color}
+        className="w-6 h-6"
+      />
+      <Text
+        className={`${
+          focused ? "font-semibold" : "font-regular"
+        } text-xs text-foreground`}
+      >
+        {" "}
+        {name}
+      </Text>
+    </View>
+  );
+};
+
+export default function TabsLayout() {
+  return (
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: "green",
+        tabBarShowLabel: false,
+        tabBarInactiveTintColor: "#CDCDE0",
+        tabBarStyle: {
+          borderTopWidth: 1,
+          paddingTop: 10,
+          borderTopColor: "#CDCDE0",
+        },
+      }}
+    >
       <Tabs.Screen
         name="home"
         options={{
           title: "Home",
-          headerRight: () => <ThemeToggle />,
-          tabBarIcon: ({ color }) => (
-            <FontAwesome size={28} name="home" color={color} />
+          headerShown: false,
+        
+          tabBarIcon: ({ color, focused }) => (
+            <TabIcon
+              icon={icons.home}
+              color={color}
+              name="Home"
+              focused={focused}
+            />
           ),
         }}
       />
       <Tabs.Screen
-        name="services"
+        name="bookmarks"
         options={{
-          headerShown: false,
-
-          title: "Services",
-          tabBarIcon: ({ color }) => (
-            <FontAwesome size={28} name="server" color={color} />
+          title: "Bookmarks",
+          headerShown: true,
+          tabBarIcon: ({ color, focused }) => (
+            <TabIcon
+              icon={icons.bookmark}
+              color={color}
+              name="Bookmarks"
+              focused={focused}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="create"
+        options={{
+          title: "Create",
+          headerShown: true,
+          tabBarIcon: ({ color, focused }) => (
+            <TabIcon
+              icon={icons.plus}
+              color={color}
+              name="Create"
+              focused={focused}
+            />
           ),
         }}
       />
@@ -30,18 +95,15 @@ export default function TabLayout() {
         name="profile"
         options={{
           title: "Profile",
-          tabBarIcon: ({ color }) => (
-            <FontAwesome size={28} name="user" color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="bookings"
-        options={{
-          title: "Bookings",
-          headerRight: () => <ThemeToggle />,
-          tabBarIcon: ({ color }) => (
-            <FontAwesome size={28} name="calendar" color={color} />
+          headerShown: true,
+            headerRight: () => <ThemeToggle />,
+          tabBarIcon: ({ color, focused }) => (
+            <TabIcon
+              icon={icons.profile}
+              color={color}
+              name="Profile"
+              focused={focused}
+            />
           ),
         }}
       />

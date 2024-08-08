@@ -5,13 +5,16 @@ import { Theme, ThemeProvider } from "@react-navigation/native";
 import { SplashScreen, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as React from "react";
-import { Platform } from "react-native";
+import { Platform, Text, View } from "react-native";
 import { NAV_THEME } from "~/lib/constants";
 import { useColorScheme } from "~/lib/useColorScheme";
 import { PortalHost } from "~/components/primitives/portal";
 import { ThemeToggle } from "~/components/ThemeToggle";
 import { HomeIconHover } from "~/components/HomeIconHover";
 import { useFonts } from "expo-font";
+
+import { useRoute } from "@react-navigation/native";
+import GlobalProvider from "~/context/GlobalProvider";
 
 const LIGHT_THEME: Theme = {
   dark: false,
@@ -84,28 +87,17 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-      <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
-      <Stack>
-        {/* <Stack.Screen
-          name='index'
-          options={{
-            title: 'Home',
-            headerStyle: { backgroundColor: 'cyan' },
-            headerLeft: () => <HomeIconHover />,
-            headerRight: () => <ThemeToggle />,
-          }}
-        /> */}
-        <Stack.Screen
-          name="(tabs)"
-          options={{
-            headerShown: false,
-            title: "",
-            headerRight: () => <ThemeToggle />,
-          }}
-        />
-      </Stack>
-      <PortalHost />
-    </ThemeProvider>
+    <GlobalProvider>
+      <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
+        <StatusBar />
+
+        <Stack>
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+        </Stack>
+        <PortalHost />
+      </ThemeProvider>
+    </GlobalProvider>
   );
 }
