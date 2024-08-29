@@ -87,7 +87,6 @@ export default function RootLayout() {
   }
 
   return (
-    <GlobalProvider>
       <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
         <StatusBar />
 
@@ -98,6 +97,5 @@ export default function RootLayout() {
         </Stack>
         <PortalHost />
       </ThemeProvider>
-    </GlobalProvider>
   );
 }

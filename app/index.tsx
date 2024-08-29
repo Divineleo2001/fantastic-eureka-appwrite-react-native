@@ -12,6 +12,7 @@ const App = () => {
   const { isLoading, isLogged } = useGlobalContext();
 
   if (!isLoading && isLogged) return <Redirect href="/home" />;
+  
 
   return (
     <SafeAreaView className=" h-full">

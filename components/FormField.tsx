@@ -9,7 +9,7 @@ const FormField = ({
   placeholder,
   handleChangeText,
   otherStyles,
-  ...props
+...props
 }: any) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -40,14 +40,6 @@ const FormField = ({
             />
           </TouchableOpacity>
         )}
-        {/* <TextInput
-          className={`flex-1 text-${isDarkColorScheme ? "white" : "black"} font-semibold text-base`}
-          value={value}
-          placeholder={placeholder}
-          placeholderTextColor="#7b7b8b"
-          onChangeText={handleChangeText}
-          secureTextEntry={title === "Password" && !showPassword}
-        /> */}
       </View>
     </View>
   );

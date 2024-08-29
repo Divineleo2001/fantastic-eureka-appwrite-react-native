@@ -18,6 +18,8 @@ const SignUp = () => {
     password: "",
   });
 
+
+
   const submit = async () => {
     if (!form.username || !form.email || !form.password) {
       Alert.alert("Error", "Please fill in all fields");
@@ -42,7 +44,7 @@ const SignUp = () => {
     }
   };
 
-  return (
+return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView>
         <View
@@ -80,7 +82,7 @@ const SignUp = () => {
           <FormField
             title="Password"
             value={form.password}
-            handleChangeText={(e: any) => setForm({ ...form, password: e })}
+            handleChangeText={(e: any) => setForm({ ...form, password: e})}
             otherStyles="mt-7"
           />
 
